@@ -1,0 +1,268 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/V2/Northwind/Northwind.svc/$metadata">
+        <edmx:Include Namespace="NorthwindModel" />
+        <edmx:Include Namespace="ODataWeb.Northwind.Model" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <Annotations Target="ODataWeb.Northwind.Model.NorthwindEntities/Products">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    //to make default search filter bar visiblity as false
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false" />
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    //to make delete button visiblity as false
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false" />
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    //to make delete button visiblity as false
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="NorthwindModel.Product/ProductName">
+                <Annotation Term="Common.Label" String="{@i18n>productName}" />
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Alphabetical_list_of_products" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ProductName" />
+                                    <PropertyValue Property="ValueListProperty" String="ProductName" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                //to change label of a property
+            </Annotations>
+
+            <Annotations Target="NorthwindModel.Product/ProductID">
+                <Annotation Term="Common.Label" String="{@i18n>productId}" />
+                //to change label of a property
+            </Annotations>
+            <Annotations Target="NorthwindModel.Product/CategoryID">
+                <Annotation Term="Common.Label" String="{@i18n>categoryId}" />
+                //to change label of a property
+            </Annotations>
+            <Annotations Target="NorthwindModel.Product/SupplierID">
+                <Annotation Term="Common.Label" String="{@i18n>supplierId}" />
+                //to change label of a property
+            </Annotations>
+
+            <Annotations Target="NorthwindModel.Product/ProductID"> //to add two cloumns ProductName with ProductID in table
+                //to add to cloumns into one: productID + productName
+                <Annotation Term="Common.Text" Path="ProductName" />
+            </Annotations>
+            
+            <Annotations Target="NorthwindModel.Product">
+                <Annotation Term="Common.SemanticKey">
+                    //to add productID as BOLD
+                    <Collection>
+                        <PropertyPath>ProductID</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.HeaderInfo">// header information
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="Description">
+                            // object page header description
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ProductName" />
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Title">
+                            // object page header TITLE
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ProductID" />
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TypeName" String="{@i18n>product}" />//object page header fiori name
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>products}" />
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="UI.SelectionFields">
+                    //to add search fields
+                    <Collection>
+                        <PropertyPath>ProductID</PropertyPath>
+                        <PropertyPath>ProductName</PropertyPath>
+                        <PropertyPath>CategoryID</PropertyPath>
+                        <PropertyPath>SupplierID</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.LineItem">
+                    //to add table columns
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Product ID" />
+                            //to change column name
+                            <PropertyValue Property="Value" Path="ProductID" />
+                            //to give path(binding) for column values
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Category ID" />
+                            <PropertyValue Property="Value" Path="CategoryID" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Discontinued" />
+                            <PropertyValue Property="Value" Path="Discontinued" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+
+                        <!-- <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Product Name" />
+                            <PropertyValue Property="Value" Path="ProductName" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record> -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Quantity Per Unit" />
+                            <PropertyValue Property="Value" Path="QuantityPerUnit" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Reorder Level" />
+                            <PropertyValue Property="Value" Path="ReorderLevel" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Supplier ID" />
+                            <PropertyValue Property="Value" Path="SupplierID" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Unit Price" />
+                            <PropertyValue Property="Value" Path="UnitPrice" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Units In Stock" />
+                            <PropertyValue Property="Value" Path="UnitsInStock" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Units On Order" />
+                            <PropertyValue Property="Value" Path="UnitsOnOrder" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Product" />
+                            <PropertyValue Property="ID" String="Level" />
+                            <PropertyValue Property="Target" AnnotationPath="@UI.Identification#prodID" />
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="General Information" />
+                            <PropertyValue Property="ID" String="General_Information" />
+                            <PropertyValue Property="Target" AnnotationPath="@UI.Identification#genInfo" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.Identification" Qualifier="genInfo">
+                    //OBJ PAGE DATA of a facet with qualifier
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Product ID" />
+                            //to change column name
+                            <PropertyValue Property="Value" Path="ProductID" />
+                            //to give path(binding) for column values
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Category ID" />
+                            <PropertyValue Property="Value" Path="CategoryID" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Discontinued" />
+                            <PropertyValue Property="Value" Path="Discontinued" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+
+                        <!-- <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Product Name" />
+                            <PropertyValue Property="Value" Path="ProductName" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record> -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Quantity Per Unit" />
+                            <PropertyValue Property="Value" Path="QuantityPerUnit" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Reorder Level" />
+                            <PropertyValue Property="Value" Path="ReorderLevel" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Supplier ID" />
+                            <PropertyValue Property="Value" Path="SupplierID" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Unit Price" />
+                            <PropertyValue Property="Value" Path="UnitPrice" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Units In Stock" />
+                            <PropertyValue Property="Value" Path="UnitsInStock" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Units On Order" />
+                            <PropertyValue Property="Value" Path="UnitsOnOrder" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.Identification" Qualifier="prodID">
+                    //OBJ PAGE DATA of a facet with qualifier
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Product ID" />
+                            //to change column name
+                            <PropertyValue Property="Value" Path="ProductID" />
+                            //to give path(binding) for column values
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Category ID" />
+                            <PropertyValue Property="Value" Path="CategoryID" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

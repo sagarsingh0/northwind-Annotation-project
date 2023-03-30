@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1679896687482_665_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "zaanoproject1",
+    "packageName": "",
+    "content": {
+        "property": "displayShape",
+        "newValue": "Square"
+    },
+    "selector": {
+        "id": "zaanoproject1::sap.suite.ui.generic.template.ObjectPage.view.Details::Products--objectImage",
+        "idIsLocal": false,
+        "type": "sap.f.Avatar"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/zaanoproject1/changes/",
+    "projectId": "",
+    "creation": 1679896687482,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "1.112.0",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "0.0.1",
+        "to": "0.0.1",
+        "creation": "0.0.1"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}
